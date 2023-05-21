@@ -87,25 +87,32 @@ struct Comparison
 struct U
 {
     float num1 { 0 }, num2 { 0 };
-    float <#memberFunction#>(float* updated)      //12
+    float updateNums(float* updated)      //12
     {
         
     }
 };
 
-struct Updater
+struct UpdateThat
 {
-    static float iDunno(U* that, float* updated )        //10
+    static float updateNums(U* that, float updated )        //10
     {
+        if(that != nullptr)
+            
         std::cout << "U's num1 value: " << that->num1 << std::endl;
         that->num1 = updated;
         std::cout << "U's num1 updated value: " << that->num1 << std::endl;
+        
         while( std::abs(that->num2 - that->num1) > 0.001f )
         {
-            
-            that->num2 += ;
+            /*
+             write something that makes the distance between that->num2 
+             and that->num1 get smaller
+             */
+            that->num2 += updated;
         }
         std::cout << "U's num2 updated value: " << that->num2 << std::endl;
+        
         return that->num2 * that->num1;
     }
 };
@@ -126,17 +133,17 @@ struct Updater
 
 int main()
 {
-    T one(1, f);                                             //6
-    T two(2, g);                                             //6
+    T one(1, "a");                                             //6
+    T two(2, "b");                                             //6
     
     Comparison f;                                            //7
-    auto* smaller = f.compare(5, 3);                              //8
+    auto* smaller = f.compare(&one, &two);                              //8
     std::cout << "the smaller one is << " << smaller->name << std::endl; //9
     
-    U <#name3#>;
+    U uFirst;
     float updatedValue = 5.f;
-    std::cout << "[static func] <#name3#>'s multiplied values: " << <#structname2#>::<#staticFunctionA#>( , ) << std::endl;                  //11
+    std::cout << "updateNums uFirst's multiplied values: " << UpdateThat::updateNums(&uFirst, updatedValue ) << std::endl;                  //11
     
-    U <#name4#>;
-    std::cout << "[member func] <#name4#>'s multiplied values: " << <#name4#>.<#memberFunction#>( &updated ) << std::endl;
+    U uSecond;
+    std::cout << "updateNums uSecond's multiplied values: " << uSecond.updateNums(&updatedValue) << std::endl;
 }
