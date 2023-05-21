@@ -89,7 +89,21 @@ struct U
     float num1 { 0 }, num2 { 0 };
     float updateNums(float* updated)      //12
     {
+        if(updated != nullptr)
+            
+        std::cout << "U's num1 value: " << num1 << std::endl;
+        num1 = *updated;
+        std::cout << "U's num1 updated value: " << num1 << std::endl;
         
+        while( std::abs(num2 - num1) > 0.001f )
+        {
+            num2 += 1.f;
+            //I see that the other students have used this expression (that->num1 < that->num2) ? -0.1f : 0.1f;
+            //but I don't understand it or how to even come up with it so I did not use it.
+        }
+        std::cout << "U's num2 updated value: " << num2 << std::endl;
+        
+        return num2 * num1;
     }
 };
 
@@ -105,11 +119,9 @@ struct UpdateThat
         
         while( std::abs(that->num2 - that->num1) > 0.001f )
         {
-            /*
-             write something that makes the distance between that->num2 
-             and that->num1 get smaller
-             */
-            that->num2 += updated;
+            that->num2 += 1.f;
+            //I see that the other students have used this expression (that->num1 < that->num2) ? -0.1f : 0.1f;
+            //but I don't understand it or how to even come up with it so I did not use it.
         }
         std::cout << "U's num2 updated value: " << that->num2 << std::endl;
         
@@ -138,7 +150,14 @@ int main()
     
     Comparison f;                                            //7
     auto* smaller = f.compare(&one, &two);                              //8
-    std::cout << "the smaller one is << " << smaller->name << std::endl; //9
+    if(smaller == nullptr)
+    {
+        std::cout << "T one & T two are equal... OR ... smaller is returning a nullptr\n";//9
+    }
+    else
+    {
+        std::cout << "the smaller one is << " << smaller->name << std::endl; 
+    }
     
     U uFirst;
     float updatedValue = 5.f;
