@@ -111,7 +111,7 @@ struct UpdateThat
 {
     static float updateNums(U* that, float* updated )        //10
     {
-        if(that != nullptr)
+        if(that != nullptr && updated != nullptr)
         {
             std::cout << "U's num1 value: " << that->num1 << std::endl;
             that->num1 = *updated;
