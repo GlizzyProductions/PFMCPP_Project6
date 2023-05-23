@@ -13,10 +13,10 @@ Purpose:  This project will show you the difference between member functions and
  Task: replace all of the <#place holder#> placeholders with proper names and types that will make this program compile and run.
  
  press the Compile, link and run... button and work your way through all of the error messages.
- 
-
+*/
+/* 
  steps:
- 
+
  1) finish implementing the constructor for T. the constructor parameters need to initialize 2) and 3)
  
  2) provide a member variable in T of a type of your choosing that works with the compare function below T
@@ -33,8 +33,10 @@ Purpose:  This project will show you the difference between member functions and
  6) finish instantiating the two T instances being declared in main(), based on the constructor you finished implementing in T
      Their names (line 105,106) are different than the member variables names (line 77), even tho the placeholders share the same name.
      Don't let this confuse you.
- 
+
  7) Declare 'f' with the proper type so the call to f.compare works
+*/
+/*
  
  8) call f.compare() with the correct arguments, based on 2) and 5)
  
@@ -58,46 +60,72 @@ Purpose:  This project will show you the difference between member functions and
 #include <string>
 struct T
 {
-    T(<#type name#> v, const char* <#variable name#>)   //1
-    //2
-    //3
+    int value;
+    std::string name;
+
+    T(int v, const char* charA) :    
+    value(v),
+    name(charA)
+    {
+        
+    }
 };
 
-struct <#structName1#>                                //4
+struct Comparison
 {
-    <#type name#> compare(<#type name#> a, <#type name#> b) //5
+    T* compare(T* a, T* b)
     {
-        if( a->value < b->value ) return a;
-        if( a->value > b->value ) return b;
+        if(a != nullptr && b != nullptr)
+        {
+            if( a->value < b->value ) return a;
+            if( a->value > b->value ) return b;
+        }
         return nullptr;
     }
 };
 
 struct U
 {
-    float <#name1#> { 0 }, <#name2#> { 0 };
-    <#returnType#> <#memberFunction#>(<#type name#>* <#updatedValue#>)      //12
+    float num1 { 0 }, num2 { 0 };
+    float updateNums(float* updated)      //12
     {
+        if(updated != nullptr)
+        {
+            std::cout << "U's num1 value: " << num1 << std::endl;
+            num1 = *updated;
+            std::cout << "U's num1 updated value: " << num1 << std::endl;
         
+            while( std::abs(num2 - num1) > 0.001f )
+            {
+                num2 += 1.f;
+                //I see that the other students have used this expression (that->num1 < that->num2) ? -0.1f : 0.1f;
+                //but I don't understand it or how to even come up with it so I did not use it.
+            }
+            std::cout << "U's num2 updated value: " << num2 << std::endl;
+        }   
+        return num2 * num1;
     }
 };
 
-struct <#structname2#>
+struct UpdateThat
 {
-    static <#returntype#> <#staticFunctionA#>(U* that, <#type name#>* <#updatedValue#> )        //10
+    static float updateNums(U* that, float* updated )        //10
     {
-        std::cout << "U's <#name1#> value: " << that-><#name1#> << std::endl;
-        that-><#name1#> = <#updatedValue#>;
-        std::cout << "U's <#name1#> updated value: " << that-><#name1#> << std::endl;
-        while( std::abs(that-><#name2#> - that-><#name1#>) > 0.001f )
+        if(that != nullptr && updated != nullptr)
         {
-            /*
-             write something that makes the distance between that-><#name2#> and that-><#name1#> get smaller
-             */
-            that-><#name2#> += ;
+            std::cout << "U's num1 value: " << that->num1 << std::endl;
+            that->num1 = *updated;
+            std::cout << "U's num1 updated value: " << that->num1 << std::endl;
+        
+            while( std::abs(that->num2 - that->num1) > 0.001f )
+            {
+                that->num2 += 1.f;
+                //I see that the other students have used this expression (that->num1 < that->num2) ? -0.1f : 0.1f;
+                //but I don't understand it or how to even come up with it so I did not use it.
+            }
+            std::cout << "U's num2 updated value: " << that->num2 << std::endl;
         }
-        std::cout << "U's <#name2#> updated value: " << that-><#name2#> << std::endl;
-        return that-><#name2#> * that-><#name1#>;
+        return that->num2 * that->num1;
     }
 };
         
@@ -117,17 +145,24 @@ struct <#structname2#>
 
 int main()
 {
-    T <#name1#>( , );                                             //6
-    T <#name2#>( , );                                             //6
+    T one(1, "a");                                             //6
+    T two(2, "b");                                             //6
     
-    <#structName1#> f;                                            //7
-    auto* smaller = f.compare( , );                              //8
-    std::cout << "the smaller one is << " << smaller->name << std::endl; //9
+    Comparison f;                                            //7
+    auto* smaller = f.compare(&one, &two);                              //8
+    if(smaller == nullptr)
+    {
+        std::cout << "T one & T two are equal... OR ... smaller is returning a nullptr\n";//9
+    }
+    else
+    {
+        std::cout << "the smaller one is << " << smaller->name << std::endl; 
+    }
     
-    U <#name3#>;
+    U uFirst;
     float updatedValue = 5.f;
-    std::cout << "[static func] <#name3#>'s multiplied values: " << <#structname2#>::<#staticFunctionA#>( , ) << std::endl;                  //11
+    std::cout << "updateNums uFirst's multiplied values: " << UpdateThat::updateNums(&uFirst, &updatedValue ) << std::endl;                  //11
     
-    U <#name4#>;
-    std::cout << "[member func] <#name4#>'s multiplied values: " << <#name4#>.<#memberFunction#>( &updatedValue ) << std::endl;
+    U uSecond;
+    std::cout << "updateNums uSecond's multiplied values: " << uSecond.updateNums(&updatedValue) << std::endl;
 }
