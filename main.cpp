@@ -90,41 +90,41 @@ struct U
     float updateNums(float* updated)      //12
     {
         if(updated != nullptr)
-            
-        std::cout << "U's num1 value: " << num1 << std::endl;
-        num1 = *updated;
-        std::cout << "U's num1 updated value: " << num1 << std::endl;
-        
-        while( std::abs(num2 - num1) > 0.001f )
         {
-            num2 += 1.f;
-            //I see that the other students have used this expression (that->num1 < that->num2) ? -0.1f : 0.1f;
-            //but I don't understand it or how to even come up with it so I did not use it.
-        }
-        std::cout << "U's num2 updated value: " << num2 << std::endl;
+            std::cout << "U's num1 value: " << num1 << std::endl;
+            num1 = *updated;
+            std::cout << "U's num1 updated value: " << num1 << std::endl;
         
+            while( std::abs(num2 - num1) > 0.001f )
+            {
+                num2 += 1.f;
+                //I see that the other students have used this expression (that->num1 < that->num2) ? -0.1f : 0.1f;
+                //but I don't understand it or how to even come up with it so I did not use it.
+            }
+            std::cout << "U's num2 updated value: " << num2 << std::endl;
+        }   
         return num2 * num1;
     }
 };
 
 struct UpdateThat
 {
-    static float updateNums(U* that, float updated )        //10
+    static float updateNums(U* that, float* updated )        //10
     {
         if(that != nullptr)
-            
-        std::cout << "U's num1 value: " << that->num1 << std::endl;
-        that->num1 = updated;
-        std::cout << "U's num1 updated value: " << that->num1 << std::endl;
-        
-        while( std::abs(that->num2 - that->num1) > 0.001f )
         {
-            that->num2 += 1.f;
-            //I see that the other students have used this expression (that->num1 < that->num2) ? -0.1f : 0.1f;
-            //but I don't understand it or how to even come up with it so I did not use it.
-        }
-        std::cout << "U's num2 updated value: " << that->num2 << std::endl;
+            std::cout << "U's num1 value: " << that->num1 << std::endl;
+            that->num1 = *updated;
+            std::cout << "U's num1 updated value: " << that->num1 << std::endl;
         
+            while( std::abs(that->num2 - that->num1) > 0.001f )
+            {
+                that->num2 += 1.f;
+                //I see that the other students have used this expression (that->num1 < that->num2) ? -0.1f : 0.1f;
+                //but I don't understand it or how to even come up with it so I did not use it.
+            }
+            std::cout << "U's num2 updated value: " << that->num2 << std::endl;
+        }
         return that->num2 * that->num1;
     }
 };
@@ -161,7 +161,7 @@ int main()
     
     U uFirst;
     float updatedValue = 5.f;
-    std::cout << "updateNums uFirst's multiplied values: " << UpdateThat::updateNums(&uFirst, updatedValue ) << std::endl;                  //11
+    std::cout << "updateNums uFirst's multiplied values: " << UpdateThat::updateNums(&uFirst, &updatedValue ) << std::endl;                  //11
     
     U uSecond;
     std::cout << "updateNums uSecond's multiplied values: " << uSecond.updateNums(&updatedValue) << std::endl;
