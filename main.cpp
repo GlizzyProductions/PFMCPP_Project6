@@ -8,7 +8,7 @@ Create a branch named Part2
  
  
  1) convert the pointer usage (except for 'const char*') to reference types or 
-    const reference types **>>> WHERE POSSIBLE <<<**
+    const reference types ***>>> WHERE POSSIBLE <<<***
     Not every pointer can be converted.
         hint: There is no reference equivalent to nullptr.  
         if a pointer (including nullptr) is being returned anywhere, don't try to convert it to a reference and don't change the return type either.
