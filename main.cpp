@@ -44,11 +44,8 @@ struct Comparison
 {
     T* compare(T& a, T& b)
     {
-        //if(a != nullptr && b != nullptr)
-        {
-            if( a.value < b.value ) return &a;
-            if( a.value > b.value ) return &b;
-        }
+        if( a.value < b.value ) return &a;
+        if( a.value > b.value ) return &b;
         return nullptr;
     }
 };
@@ -58,18 +55,15 @@ struct U
     float num1 { 0 }, num2 { 0 };
     float updateNums(const float& updated)      //12
     {
-        //if(updated != nullptr)
-        {
-            std::cout << "U's num1 value: " << num1 << std::endl;
-            num1 = updated;
-            std::cout << "U's num1 updated value: " << num1 << std::endl;
+        std::cout << "U's num1 value: " << num1 << std::endl;
+        num1 = updated;
+        std::cout << "U's num1 updated value: " << num1 << std::endl;
         
-            while( std::abs(num2 - num1) > 0.001f )
-            {
-                num2 += 1.f;
-            }
-            std::cout << "U's num2 updated value: " << num2 << std::endl;
-        }   
+        while( std::abs(num2 - num1) > 0.001f )
+        {
+            num2 += 1.f;
+        }
+        std::cout << "U's num2 updated value: " << num2 << std::endl;
         return num2 * num1;
     }
 };
@@ -78,18 +72,15 @@ struct UpdateThat
 {
     static float updateNums(U& that, const float& updated )        //10
     {
-        //if(that != nullptr && updated != nullptr)
-        {
-            std::cout << "U's num1 value: " << that.num1 << std::endl;
-            that.num1 = updated;
-            std::cout << "U's num1 updated value: " << that.num1 << std::endl;
+        std::cout << "U's num1 value: " << that.num1 << std::endl;
+        that.num1 = updated;
+        std::cout << "U's num1 updated value: " << that.num1 << std::endl;
         
-            while( std::abs(that.num2 - that.num1) > 0.001f )
-            {
-                that.num2 += 1.f;
-            }
-            std::cout << "U's num2 updated value: " << that.num2 << std::endl;
+        while( std::abs(that.num2 - that.num1) > 0.001f )
+        {
+            that.num2 += 1.f;
         }
+        std::cout << "U's num2 updated value: " << that.num2 << std::endl;
         return that.num2 * that.num1;
     }
 };
