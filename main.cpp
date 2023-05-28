@@ -56,7 +56,7 @@ struct Comparison
 struct U
 {
     float num1 { 0 }, num2 { 0 };
-    float updateNums(float& updated)      //12
+    float updateNums(const float& updated)      //12
     {
         //if(updated != nullptr)
         {
@@ -76,7 +76,7 @@ struct U
 
 struct UpdateThat
 {
-    static float updateNums(U& that, float& updated )        //10
+    static float updateNums(U& that, const float& updated )        //10
     {
         //if(that != nullptr && updated != nullptr)
         {
