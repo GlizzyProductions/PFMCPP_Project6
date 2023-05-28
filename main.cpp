@@ -117,7 +117,7 @@ int main()
     auto* smaller = f.compare(one, two);                              //8
     if(smaller == nullptr)
     {
-        std::cout << "T one & T two are equal\n";//9
+        std::cout << "T one & T two are equal \n";//9
     }
     else
     {
