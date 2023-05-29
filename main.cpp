@@ -8,7 +8,7 @@ Create a branch named Part2
  
  
  1) convert the pointer usage (except for 'const char*') to reference types or 
-    const reference types **>>> WHERE POSSIBLE <<<**
+    const reference types ***>>> WHERE POSSIBLE <<<***
     Not every pointer can be converted.
         hint: There is no reference equivalent to nullptr.  
         if a pointer (including nullptr) is being returned anywhere, don't try to convert it to a reference and don't change the return type either.
@@ -42,13 +42,10 @@ struct T
 
 struct Comparison
 {
-    T* compare(T* a, T* b)
+    T* compare(T& a, T& b)
     {
-        if(a != nullptr && b != nullptr)
-        {
-            if( a->value < b->value ) return a;
-            if( a->value > b->value ) return b;
-        }
+        if( a.value < b.value ) return &a;
+        if( a.value > b.value ) return &b;
         return nullptr;
     }
 };
@@ -56,45 +53,35 @@ struct Comparison
 struct U
 {
     float num1 { 0 }, num2 { 0 };
-    float updateNums(float* updated)      //12
+    float updateNums(const float& updated)      //12
     {
-        if(updated != nullptr)
-        {
-            std::cout << "U's num1 value: " << num1 << std::endl;
-            num1 = *updated;
-            std::cout << "U's num1 updated value: " << num1 << std::endl;
+        std::cout << "U's num1 value: " << num1 << std::endl;
+        num1 = updated;
+        std::cout << "U's num1 updated value: " << num1 << std::endl;
         
-            while( std::abs(num2 - num1) > 0.001f )
-            {
-                num2 += 1.f;
-                //I see that the other students have used this expression (that->num1 < that->num2) ? -0.1f : 0.1f;
-                //but I don't understand it or how to even come up with it so I did not use it.
-            }
-            std::cout << "U's num2 updated value: " << num2 << std::endl;
-        }   
+        while( std::abs(num2 - num1) > 0.001f )
+        {
+            num2 += 1.f;
+        }
+        std::cout << "U's num2 updated value: " << num2 << std::endl;
         return num2 * num1;
     }
 };
 
 struct UpdateThat
 {
-    static float updateNums(U* that, float* updated )        //10
+    static float updateNums(U& that, const float& updated )        //10
     {
-        if(that != nullptr && updated != nullptr)
-        {
-            std::cout << "U's num1 value: " << that->num1 << std::endl;
-            that->num1 = *updated;
-            std::cout << "U's num1 updated value: " << that->num1 << std::endl;
+        std::cout << "U's num1 value: " << that.num1 << std::endl;
+        that.num1 = updated;
+        std::cout << "U's num1 updated value: " << that.num1 << std::endl;
         
-            while( std::abs(that->num2 - that->num1) > 0.001f )
-            {
-                that->num2 += 1.f;
-                //I see that the other students have used this expression (that->num1 < that->num2) ? -0.1f : 0.1f;
-                //but I don't understand it or how to even come up with it so I did not use it.
-            }
-            std::cout << "U's num2 updated value: " << that->num2 << std::endl;
+        while( std::abs(that.num2 - that.num1) > 0.001f )
+        {
+            that.num2 += 1.f;
         }
-        return that->num2 * that->num1;
+        std::cout << "U's num2 updated value: " << that.num2 << std::endl;
+        return that.num2 * that.num1;
     }
 };
         
@@ -118,10 +105,10 @@ int main()
     T two(2, "b");                                             //6
     
     Comparison f;                                            //7
-    auto* smaller = f.compare(&one, &two);                              //8
+    auto* smaller = f.compare(one, two);                              //8
     if(smaller == nullptr)
     {
-        std::cout << "T one & T two are equal... OR ... smaller is returning a nullptr\n";//9
+        std::cout << "T one & T two are equal \n";//9
     }
     else
     {
@@ -130,8 +117,8 @@ int main()
     
     U uFirst;
     float updatedValue = 5.f;
-    std::cout << "updateNums uFirst's multiplied values: " << UpdateThat::updateNums(&uFirst, &updatedValue ) << std::endl;                  //11
+    std::cout << "updateNums uFirst's multiplied values: " << UpdateThat::updateNums(uFirst, updatedValue ) << std::endl;                  //11
     
     U uSecond;
-    std::cout << "updateNums uSecond's multiplied values: " << uSecond.updateNums(&updatedValue) << std::endl;
+    std::cout << "updateNums uSecond's multiplied values: " << uSecond.updateNums(updatedValue) << std::endl;
 }
